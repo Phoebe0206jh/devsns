@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>상세 페이지</h1>
+{{post_detail.title}}
+{{post_detail.date}}
+<br/>
+{{post_detail.author.username}}
+<hr/>
+<p>
+{{post_detail.body}}
+</p>
+
+{% for comment in post_detail.freecomment_set.all %}
+    <p>{{comment}}</p>
+    <p>{{comment.date}}</p>
+    <hr>
+{% endfor %}
+
+
+<form method="POST" action="{% url 'new_freecomment' post_detail.id %}"
+    {% csrf_token %}
+    {{comment_form}}
+    <input type="submit" value="댓글 입력">
+</form>
+{%endblock%}
